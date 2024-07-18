@@ -7,6 +7,7 @@ import Navbar from './assets/Components/Navbar/Navbar'
 import Clientes from './assets/Components/Clientes/Clientes'
 import Ruta from './assets/Components/Ruta/Ruta'
 import Producto from './assets/Components/Producto/Producto'
+import Create from './View/Create/Create'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/user' element={<User/>} />
         <Route path='/ruta' element={<Ruta/>}/>
         <Route path='/producto' element={<Producto/>}/>
+        <Route path='/create/producto' element={<Create/>}/>
       </Routes>
     </BrowserRouter>
   )

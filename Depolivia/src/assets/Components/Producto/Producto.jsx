@@ -1,39 +1,51 @@
-import React from 'react'
+// Producto.js
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 function Producto() {
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate('/create/producto');
+  };
+
+
   return (
-    <div>
-                <table class="table">
+    <div className=''>
+      <table className="table">
         <thead>
-            <tr>
+          <tr>
             <th scope="col">#</th>
             <th scope="col">First</th>
             <th scope="col">Last</th>
             <th scope="col">Handle</th>
-            </tr>
+          </tr>
         </thead>
-        <tbody class="table-group-divider">
-            <tr>
+        <tbody className="table-group-divider">
+          <tr>
             <th scope="row">1</th>
             <td>Mark</td>
             <td>Otto</td>
             <td>@mdo</td>
-            </tr>
-            <tr>
+          </tr>
+          <tr>
             <th scope="row">2</th>
             <td>Jacob</td>
             <td>Thornton</td>
             <td>@fat</td>
-            </tr>
-            <tr>
+          </tr>
+          <tr>
             <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
+            <td colSpan="2">Larry the Bird</td>
             <td>@twitter</td>
-            </tr>
+          </tr>
         </tbody>
-        </table>
+      </table>
+      <div>
+        <button type="button" className="btn btn-primary" onClick={handleButtonClick}>Crear Producto</button>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Producto
+export default Producto;
