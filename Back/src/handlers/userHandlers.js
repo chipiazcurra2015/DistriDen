@@ -19,14 +19,15 @@ const loginUserHandler = async (req, res) => {
 
 const createUserHandler = async (req, res) => {
    try {
-       const { type, firstname, lastname, age, email, password } = req.body;
+       const { type, firstname, lastname, age, email, password, image } = req.body;
        const response = await createUserController(
            type,
            firstname,
            lastname,
            age,
            email,
-           password
+           password,
+           image
        );
        res.status(200).json(response);
    } catch (error) {

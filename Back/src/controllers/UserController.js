@@ -1,22 +1,25 @@
 const { User } = require ("../db");
 const bcryptjs = require('bcryptjs');
-//const jwt = require('jsonwebtoken');
-//const JWT_SECRET= process.env;
-require('dotenv').config();
+const jwt = require('jsonwebtoken');
+const JWT_SECRET= process.env;
+//require('dotenv').config();
 
 const loginUserController = async (email, password) => {
-		const user =await User.findOne({email});
+		const user = await User.findOne({
+			where: {
+				email: email
+			}
+		});
 		if(!user || !bcryptjs.compareSync(password, user.password)) throw new Error('Credenciales incorrectas');
 		const payload = { id: user.id, email, firstname: user.firstname, lastname: user.lastname, age: user.age }
-		//const token = jwt.sign(payload, `${JWT_SECRET}`);
-		//return {token, ...payload}; 
-		return { ...payload }; 
+		const token = jwt.sign(payload, `${JWT_SECRET}`);
+		return { token, ...payload }; 
   };
 
-const createUserController = async ( type,firstname, lastname, age, email, password ) => {
+const createUserController = async ( type,firstname, lastname, age, email, password, image ) => {
 	salt = Number(process.env.SALT);
 	password = bcryptjs.hashSync(password, salt);
-	const newUser = await User.create({ type, firstname, lastname, age, email, password });
+	const newUser = await User.create({ type, firstname, lastname, age, email, password, image });
 
 	return newUser;
 };
@@ -40,6 +43,7 @@ const putUserController = async (id, editedData ) => {
             user.firstname = editedData.firstname;
             user.lastname = editedData.lastname;
 			user.age = editedData.age;
+			user.image = editedData.image;
           }
 
 		await user.save();
