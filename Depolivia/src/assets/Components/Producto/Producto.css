@@ -22,3 +22,6 @@
     width: 15rem;
     font-size: 1.2rem;
   }
+.custom-btn-close {
+  background-color: darkred; /* Cambia el color de fondo */
+}
