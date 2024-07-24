@@ -1,0 +1,24 @@
+.fixed-img-size {
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho disponible */
+    height: 280px; /* Ajusta la altura según tus necesidades */
+    object-fit: cover; /* Esto asegura que la imagen se recorte para llenar el área especificada */
+  }
+  
+  .card-body {
+    flex: 1; /* Hace que el cuerpo de la tarjeta ocupe el espacio restante */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .card-title,
+  .card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .btn{
+    width: 15rem;
+    font-size: 1.2rem;
+  }
