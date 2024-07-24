@@ -1,48 +1,38 @@
 // Producto.js
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import { getProducto } from '../../../Redux/Actions/action';
 
 function Producto() {
   const navigate = useNavigate();
-  const handleButtonClick = () => {
-    navigate('/create/producto');
-  };
+  const dispatch = useDispatch();
+  const allProducto = useSelector((state) => state.allProducto);
 
+  useEffect(() => {
+    dispatch(getProducto());
+  }, [dispatch]);
 
   return (
     <div className=''>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody className="table-group-divider">
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colSpan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
+      {/* Mapea los productos y renderiza cada uno */}
+      {allProducto.length > 0 ? (
+        allProducto.map((product) => (
+          <div key={product.id} className='product-card'>
+            <h2>{product.denomination}</h2>
+            <p>Category: {product.category}</p>
+            <p>Stock: {product.stock}</p>
+            <p>Price: ${product.price}</p>
+            <img src={product.image} alt={product.denomination} />
+          </div>
+        ))
+      ) : (
+        <p>No hay productos</p> // Mensaje en caso de que no haya productos
+      )}
       <div>
-        <button type="button" className="btn btn-primary" onClick={handleButtonClick}>Crear Producto</button>
+        <button type="button" className="btn btn-primary" onClick={() => navigate('/create/producto')}>
+          Crear Producto
+        </button>
       </div>
     </div>
   );
