@@ -28,11 +28,18 @@ let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { User, Product } = sequelize.models;
+const { User, Product, Customer, Zona, Venta } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
+// M/M
+Customer.belongsToMany(Zona,{through: "customer_zona", timestamps:false});
+Zona.belongsToMany(Customer,{through: "customer_zona", timestamps:false});
+
+// 1:M
+Customer.hasMany(Venta);
+Venta.belongsTo(Customer);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
