@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getProducto, deleteProducto, putProducto } from '../../../Redux/Actions/action';
+import { getProducto, deleteProducto, putProducto, } from '../../../Redux/Actions/action';
 import './Producto.css';
 
 function Producto() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const allProducto = useSelector((state) => state.allProducto);
+
   const [editForm, setEditForm] = useState({
     denomination: '',
     category: '',
@@ -47,14 +48,14 @@ function Producto() {
       [e.target.name]: e.target.value
     });
   };
-
+ 
   return (
     <div className="container">
       <div className="row">
         {allProducto.length > 0 ? (
           allProducto.map((product) => (
             <div key={product.id} className="col-md-3 mb-3">
-              <div className="card">
+              <div className="card"> 
                 <button
                   type="button"
                   onClick={() => handleDelete(product.id)}
@@ -80,6 +81,7 @@ function Producto() {
                   >
                     <i className="bi bi-pencil-square"></i> Editar
                   </button>
+                  
                 </div>
               </div>
 
@@ -96,9 +98,6 @@ function Producto() {
                       <h5 className="modal-title" id="exampleModalLabel">
                         Editar Producto 
                       </h5>
-                      <div>
-                      <h6>Recuerda que por seguridad solo se puede modificar el stock y el precio del producto</h6>
-                      </div>
                       <button
                         type="button"
                         className="btn-close"

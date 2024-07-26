@@ -1,8 +1,32 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getproductobyid, getallproducto } from '../../../Redux/Actions/action';
 import logo from '../../../image/logo.jpg';
 
 function Navbar() {
+  const [searchId, setSearchId] = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/producto') {
+      if (searchId.trim()) {
+        dispatch(getproductobyid(searchId));
+      } else {
+        dispatch(getallproducto());
+      }
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch(event);
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#0c3f49', margin: '0px 0px 30px 0px', fontSize: '1.3rem' }}>
       <div className="container-fluid">
@@ -14,21 +38,29 @@ function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item border-bottom border-white" >
-            <NavLink className="nav-link bi bi-cup-straw" to="/producto" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })} >Producto</NavLink>
-            </li>
-            <li className="nav-item border-bottom border-white" >
-            <NavLink className="nav-link bi bi-people-fill" to="/user" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Usuario</NavLink>
+            <li className="nav-item border-bottom border-white">
+              <NavLink className="nav-link bi bi-cup-straw" to="/producto" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Producto</NavLink>
             </li>
             <li className="nav-item border-bottom border-white">
-            <NavLink className="nav-link bi bi-person-arms-up" to="/clientes" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Cliente</NavLink>
+              <NavLink className="nav-link bi bi-people-fill" to="/user" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Usuario</NavLink>
             </li>
             <li className="nav-item border-bottom border-white">
-            <NavLink className="nav-link bi bi-geo-alt" to="/ruta" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Ruta</NavLink>
+              <NavLink className="nav-link bi bi-person-arms-up" to="/clientes" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Cliente</NavLink>
+            </li>
+            <li className="nav-item border-bottom border-white">
+              <NavLink className="nav-link bi bi-geo-alt" to="/ruta" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Ruta</NavLink>
             </li>
           </ul>
-          <form className="d-flex" role="search">
-            <input className="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search" />
+          <form className="d-flex" role="search" onSubmit={handleSearch}>
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Buscar producto"
+              aria-label="Search"
+              value={searchId}
+              onChange={(e) => setSearchId(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
             <button className="btn btn-outline-success" style={{ color: '#fff' }} type="submit">Buscar</button>
           </form>
         </div>

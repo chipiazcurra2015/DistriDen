@@ -1,7 +1,21 @@
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { DELETE_PRODUCTO, GET_PRODUCTO, PUT_PRODUCTO } from './action-type'
-
+import { DELETE_PRODUCTO, GET_ALLPRODUCTO, GET_ALLUSER, GET_PRODUCTO, GET_PRODUCTOBYID, PUT_PRODUCTO } from './action-type'
+ 
+//Action Producto// 
+export function getallproducto(){
+    return async function(dispatch){
+        try {
+           const response = await axios.get("http://localhost:3001/product/")
+            dispatch({
+                type: GET_ALLPRODUCTO,
+                payload:response.data
+            })
+        } catch (error) {
+            alert(error.response.data.error)
+        }
+    }
+}
 export function getProducto (){
     return async function(dispatch){
         try {
@@ -11,7 +25,7 @@ export function getProducto (){
                 payload: response.data
             })
         } catch (error) {
-            
+            alert(error.response.data.error)
         }
     }
 }
@@ -39,8 +53,6 @@ export function postProducto (state){
         }
     }
 }
-
-
 export function putProducto(product) {
     return async function (dispatch) {
       try {
@@ -51,9 +63,35 @@ export function putProducto(product) {
         });
         alert("Producto actualizado con Éxito");
       } catch (error) {
-        console.error('Error updating product:', error.response);
         alert(error.response.data.error);
       }
     };
   }
-  
+  export function getproductobyid(id) {
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`http://localhost:3001/product/${id}`);
+            dispatch({
+                type: GET_PRODUCTOBYID,
+                payload: response.data
+            });
+        } catch (error) {
+            alert(error.response.data.error);
+        }
+    }
+}
+
+//Action de Usuario//
+export function getalluser(){
+    return async function(dispatch){
+        try {
+            const response = await axios.get("http://localhost:3001/user/")
+            dispatch({
+                type: GET_ALLUSER,
+                payload: response.data
+            })
+        } catch (error) {
+            alert(error.response.data.error)
+        }
+    }
+}
