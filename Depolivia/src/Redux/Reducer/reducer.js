@@ -1,6 +1,6 @@
 //importar las action-type 
 
-import { DELETE_PRODUCTO, GET_PRODUCTO } from "../Actions/action-type";
+import { DELETE_PRODUCTO, GET_PRODUCTO, PUT_PRODUCTO } from "../Actions/action-type";
 
 let initialState = {
     allUser : [],
@@ -18,6 +18,13 @@ function rootReducer (state = initialState, action){
             return {
                 ...state,
                 allProducto: state.allProducto.filter(product => product.id !== action.payload.id)
+                }
+        case PUT_PRODUCTO:
+            return {
+                ...state,
+                allProducto: state.allProducto.map(product => product.id === action.payload.id ? {
+                    ...product, ...action.payload} : product
+                )
                 }
             break;
     
