@@ -7,8 +7,8 @@ function Create() {
   const [state, setState] = useState({
     denomination: "",
     category: "",
-    stock: "0",
-    price: "0",
+    stock: 0,
+    price: 0,
     image: "",
   }); 
 

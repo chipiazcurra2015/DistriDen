@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getProducto, deleteProducto, putProducto, } from '../../../Redux/Actions/action';
+import { getProducto, deleteProducto, putProducto } from '../../../Redux/Actions/action';
 import './Producto.css';
 
 function Producto() {
@@ -107,38 +107,6 @@ function Producto() {
                     </div>
                     <div className="modal-body">
                       <form>
-                        {/* <div className="input-group mb-3">
-                          <span className="input-group-text" id="basic-addon1">
-                            Producto
-                          </span>
-                          <input
-                            type="text"
-                            name="denomination"
-                            value={editForm.denomination}
-                            onChange={handleChange}
-                            className="form-control"
-                            placeholder="Nombre de producto"
-                            aria-label="Producto"
-                            aria-describedby="basic-addon1"
-                          />
-                        </div>
-
-                        <div className="input-group mb-3">
-                          <span className="input-group-text" id="basic-addon1">
-                            Categoría
-                          </span>
-                          <input
-                            type="text"
-                            name="category"
-                            value={editForm.category}
-                            onChange={handleChange}
-                            className="form-control"
-                            placeholder="Ingrese categoría"
-                            aria-label="Categoría"
-                            aria-describedby="basic-addon1"
-                          />
-                        </div> */}
-
                         <div className="input-group mb-3">
                           <span className="input-group-text" id="basic-addon1">
                             Stock
@@ -167,22 +135,6 @@ function Producto() {
                             aria-label="Precio"
                           />
                         </div>
-
-                        {/* <div className="input-group mb-3">
-                          <span className="input-group-text" id="basic-addon1">
-                            Imagen
-                          </span>
-                          <input
-                            type="text"
-                            name="image"
-                            value={editForm.image}
-                            onChange={handleChange}
-                            className="form-control"
-                            placeholder="Ingrese imagen del producto"
-                            aria-label="Imagen"
-                            aria-describedby="basic-addon1"
-                          />
-                        </div> */}
                       </form>
                     </div>
                     <div className="modal-footer">

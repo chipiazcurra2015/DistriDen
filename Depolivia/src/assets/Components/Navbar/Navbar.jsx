@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { getproductobyid, getallproducto } from '../../../Redux/Actions/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { getproductobyid, getallproducto, getalluser } from '../../../Redux/Actions/action';
 import logo from '../../../image/logo.jpg';
 
 function Navbar() {
@@ -9,6 +9,8 @@ function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const allUser = useSelector((state) => state.allUser);
+
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -20,10 +22,25 @@ function Navbar() {
       }
     }
   };
+  const handleSearchUser = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/user') {
+      if (allUser.length > 0) {
+        dispatch(getalluser());
+      } else {
+        alert("No hay Usuarios creados");
+      }
+    }
+  };
+  
+    const handleSubmit = (e) => {
+      handleSearch(e);
+      handleSearchUser(e);
+    };
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      handleSearch(event);
+      handleSubmit(event);
     }
   };
 
@@ -51,7 +68,7 @@ function Navbar() {
               <NavLink className="nav-link bi bi-geo-alt" to="/ruta" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Ruta</NavLink>
             </li>
           </ul>
-          <form className="d-flex" role="search" onSubmit={handleSearch}>
+          <form className="d-flex" role="search" onSubmit={handleSubmit}>
             <input
               className="form-control me-2"
               type="search"

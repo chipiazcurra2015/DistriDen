@@ -95,3 +95,13 @@ export function getalluser(){
         }
     }
 }
+export function postUser (state){
+    return async function(dispatch){
+        try {
+            await axios.post("http://localhost:3001/user/",state)
+            alert("Usuario creado con éxito")
+        } catch (error) {
+            alert (error.response.data.error)
+        }
+    }
+}

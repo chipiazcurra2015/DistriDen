@@ -8,6 +8,7 @@ import Clientes from './assets/Components/Clientes/Clientes'
 import Ruta from './assets/Components/Ruta/Ruta'
 import Producto from './assets/Components/Producto/Producto'
 import Create from './View/Create/Create'
+import CreateUser from './View/CreateUser/CreateUser'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/ruta' element={<Ruta/>}/>
         <Route path='/producto' element={<Producto/>}/>
         <Route path='/create/producto' element={<Create/>}/>
+        <Route path='/create/user' element={<CreateUser/>}/>
       </Routes>
     </BrowserRouter>
   )
