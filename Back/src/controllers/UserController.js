@@ -43,7 +43,6 @@ const putUserController = async (id, editedData ) => {
             user.firstname = editedData.firstname;
             user.lastname = editedData.lastname;
 			user.age = editedData.age;
-			user.image = editedData.image;
           }
 
 		await user.save();
