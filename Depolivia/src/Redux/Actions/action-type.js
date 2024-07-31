@@ -9,3 +9,5 @@ export const GET_ALLUSER = "GET_ALLUSER";
 export const DELETE_USER ="DELETE_USER";
 export const PUT_USER = "PUT_USER";
 export const GET_USERBYID = "GET_USERBYID";
+//LOGIN//
+export const LOGIN = "LOGIN";

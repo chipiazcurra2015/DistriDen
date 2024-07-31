@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { DELETE_PRODUCTO, DELETE_USER, GET_ALLPRODUCTO,
-     GET_ALLUSER, GET_PRODUCTO, GET_PRODUCTOBYID, GET_USERBYID, PUT_PRODUCTO, 
+     GET_ALLUSER, GET_PRODUCTO, GET_PRODUCTOBYID, GET_USERBYID, LOGIN, PUT_PRODUCTO, 
      PUT_USER} from './action-type'
  
 //Action Producto// 
@@ -141,6 +141,20 @@ export function putUser(user) {
             const response = await axios.get(`http://localhost:3001/user/${id}`);
             dispatch({
                 type: GET_USERBYID,
+                payload: response.data
+            });
+        } catch (error) {
+            alert(error.response.data.error);
+        }
+    }
+}
+//LOGIN//
+export function login(email, password) {
+    return async function (dispatch) {
+        try {
+            const response = await axios.post('http://localhost:3001/user/log',{ email, password });
+        dispatch({
+                type: LOGIN,
                 payload: response.data
             });
         } catch (error) {

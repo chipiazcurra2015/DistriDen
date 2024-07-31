@@ -1,0 +1,16 @@
+.form-login {
+    color: aliceblue;
+    width: 24%;
+    background-color: #0c3f49;
+    padding: 50px;
+    border-radius: 20px;
+}
+.btn{
+    width: 10rem;
+}
+
+@media screen and (max-width: 1080px) {
+    .form-login{
+        width: 100% !important;
+    }
+}
