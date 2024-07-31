@@ -27,9 +27,15 @@ const handleSubmit = (event) => {
 return (
   <div className="container mt-5">
     <form onSubmit={handleSubmit}>
-      <div className="input-group mb-3">
+    <div className="input-group mb-3">
         <span className="input-group-text" id="basic-addon1">Tipo de Usuario</span>
-        <input type="text" name="type" onChange={handleChange} className="form-control" placeholder="Ingrese tipo de usuari que desea crear" aria-label="Producto" aria-describedby="basic-addon1" />
+        <select
+          name="type"onChange={handleChange}className="form-control"aria-label="Tipo de Usuario"aria-describedby="basic-addon1"value={state.type}>
+          <option value="" disabled>Seleccione el tipo de usuario</option>
+          <option value="Administrador">Administrador</option>
+          <option value="Vendedor">Vendedor</option>
+          <option value="Transportista">Transportista</option>
+        </select>
       </div>
 
       <div className="input-group mb-3">

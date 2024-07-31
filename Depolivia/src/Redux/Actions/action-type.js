@@ -6,3 +6,6 @@ export const GET_PRODUCTOBYID = "GET_PRODUCTOBYID";
 export const GET_ALLPRODUCTO = "GET_ALLPRODUCTO"
 //Action de User//
 export const GET_ALLUSER = "GET_ALLUSER";
+export const DELETE_USER ="DELETE_USER";
+export const PUT_USER = "PUT_USER";
+export const GET_USERBYID = "GET_USERBYID";

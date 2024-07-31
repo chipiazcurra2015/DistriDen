@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getalluser } from '../../Redux/Actions/action';
+import { deleteUser, getalluser, putUser } from '../../Redux/Actions/action';
 
 function User() {
 const allUser = useSelector((state)=> state.allUser)
 const navigate = useNavigate();
 const dispatch = useDispatch();
 
-const [state, setState] = useState({
-    type: "",
+const [editForm, setEditForm] = useState({
+  type: "",
   firstname: "",
   lastname: " ",
   age: 0,
@@ -24,31 +24,32 @@ useEffect(() => {
 
 const handleDelete = (id) => {
   if (window.confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-    dispatch(deleteProducto(id));
+    dispatch(deleteUser(id));
   }
 };
 
-// const handlePut = () => {
-//   dispatch(putProducto(editForm));
-// };
+const handlePut = () => {
+  dispatch(putUser(editForm));
+};
 
-// const handleEditClick = (product) => {
-//   setEditForm({
-//     id: product.id,
-//     denomination: product.denomination,
-//     category: product.category,
-//     stock: product.stock,
-//     price: product.price,
-//     image: product.image
-//   });
-// };
+const handleEditClick = (user) => {
+  setEditForm({
+    id: user.id,
+    type: user.type,
+    firstname: user.firstname,
+    lastname: user.lastname,
+    age: user.age,
+    email: user.email,
+    password: user.password
+  });
+};
 
-// const handleChange = (e) => {
-//   setEditForm({
-//     ...editForm,
-//     [e.target.name]: e.target.value
-//   });
-// };
+const handleChange = (e) => {
+  setEditForm({
+    ...editForm,
+    [e.target.name]: e.target.value
+  });
+};
 
   return (
     <div className="container">
@@ -59,17 +60,18 @@ const handleDelete = (id) => {
               <div className="card"> 
                 <button
                   type="button"
-                  // onClick={() => handleDelete(user.id)}
+                  onClick={() => handleDelete(user.id)}
                   className="btn-close custom-btn-close"
                 ></button>
 
                 <div className="card-body text-white bg-dark">
-                  <h5 className="card-title">{user.type}</h5>
-                  <p className="card-text">Nombre: {user.firstname}</p>
-                  <p className="card-text">Apellido: {user.lastname}</p>
-                  <p className="card-text">Años: ${user.age}</p>
-                  <p className="card-text">email: {user.email}</p>
-                  {/* <button
+                  <h3 className="card-title">{user.type}</h3>
+                  <h4 className="card-text">Nombre: {user.firstname}</h4>
+                  <h5 className="card-text">Apellido: {user.lastname}</h5>
+                  <h5 className="card-text">Años: {user.age}</h5>
+                  <h5 className="card-text">Email: {user.email}</h5>
+                  <h5 className="card-text">ID: {user.id}</h5>
+                  <button
                     type="button"
                     className="btn btn-outline-warning"
                     data-bs-toggle="modal"
@@ -77,14 +79,14 @@ const handleDelete = (id) => {
                     onClick={() => handleEditClick(user)}
                   >
                     <i className="bi bi-pencil-square"></i> Editar
-                  </button> */}
+                  </button>
                   
                 </div>
               </div>
 
               <div
                 className="modal fade"
-                // id={`editModal${user.id}`}
+                id={`editModal${user.id}`}
                 tabIndex="-1"
                 aria-labelledby="exampleModalLabel"
                 aria-hidden="true"
@@ -104,31 +106,62 @@ const handleDelete = (id) => {
                     </div>
                     <div className="modal-body">
                       <form>
+                    <div className="input-group mb-3">
+                      <span className="input-group-text" id="basic-addon1">
+                      Tipo
+                      </span>
+                      <select
+                      name="type"
+                      value={editForm.type}
+                      onChange={handleChange}
+                      className="form-control"
+                      aria-label="Tipo"
+                      aria-describedby="basic-addon1"
+                      >
+                      <option value="" disabled>Seleccione un tipo</option>
+                      <option value="Administrador">Administrador</option>
+                      <option value="Vendedor">Vendedor</option>
+                      <option value="Transportista">Transportista</option>
+                      </select>
+                      </div>
+
                         <div className="input-group mb-3">
                           <span className="input-group-text" id="basic-addon1">
-                            Stock
+                            Años
                           </span>
                           <input
                             type="number"
-                            name="stock"
-                            // value={editForm.stock}
-                            // onChange={handleChange}
+                            name="age"
+                            value={editForm.age}
+                            onChange={handleChange}
                             className="form-control"
-                            placeholder="Ingrese Stock del producto"
+                            placeholder="Ingrese nuevo años"
                             aria-label="Stock"
                             aria-describedby="basic-addon1"
                           />
                         </div>
 
                         <div className="input-group mb-3">
-                          <span className="input-group-text">$</span>
+                          <span className="input-group-text">Nombre</span>
                           <input
                             type="text"
-                            name="price"
-                            // value={editForm.price}
-                            // onChange={handleChange}
+                            name="firstname"
+                            value={editForm.firstname}
+                            onChange={handleChange}
                             className="form-control"
-                            placeholder="Ingrese precio unitario del producto"
+                            placeholder="Ingrese nueva contraseña"
+                            aria-label="Precio"
+                          />
+                        </div>
+                        <div className="input-group mb-3">
+                          <span className="input-group-text">Apellido</span>
+                          <input
+                            type="text"
+                            name="lastname"
+                            value={editForm.lastname}
+                            onChange={handleChange}
+                            className="form-control"
+                            placeholder="Ingrese nueva contraseña"
                             aria-label="Precio"
                           />
                         </div>
@@ -144,7 +177,7 @@ const handleDelete = (id) => {
                       </button>
                       <button
                         type="button"
-                        // onClick={handlePut}
+                        onClick={handlePut}
                         className="btn btn-primary"
                       >
                         GUARDAR CAMBIOS

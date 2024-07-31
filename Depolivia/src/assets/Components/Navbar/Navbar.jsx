@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getproductobyid, getallproducto, getalluser } from '../../../Redux/Actions/action';
+import { getproductobyid, getallproducto, getalluser, getUserbyid } from '../../../Redux/Actions/action';
 import logo from '../../../image/logo.jpg';
 
 function Navbar() {
@@ -25,10 +25,10 @@ function Navbar() {
   const handleSearchUser = (e) => {
     e.preventDefault();
     if (location.pathname === '/user') {
-      if (allUser.length > 0) {
-        dispatch(getalluser());
+      if (searchId.trim()) {
+        dispatch(getUserbyid(searchId));
       } else {
-        alert("No hay Usuarios creados");
+        dispatch(getalluser());
       }
     }
   };
@@ -72,7 +72,7 @@ function Navbar() {
             <input
               className="form-control me-2"
               type="search"
-              placeholder="Buscar producto"
+              placeholder="Buscar"
               aria-label="Search"
               value={searchId}
               onChange={(e) => setSearchId(e.target.value)}

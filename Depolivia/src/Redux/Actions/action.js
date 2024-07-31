@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { DELETE_PRODUCTO, GET_ALLPRODUCTO, GET_ALLUSER, GET_PRODUCTO, GET_PRODUCTOBYID, PUT_PRODUCTO } from './action-type'
+import { DELETE_PRODUCTO, DELETE_USER, GET_ALLPRODUCTO,
+     GET_ALLUSER, GET_PRODUCTO, GET_PRODUCTOBYID, GET_USERBYID, PUT_PRODUCTO, 
+     PUT_USER} from './action-type'
  
 //Action Producto// 
 export function getallproducto(){
@@ -102,6 +104,47 @@ export function postUser (state){
             alert("Usuario creado con éxito")
         } catch (error) {
             alert (error.response.data.error)
+        }
+    }
+}
+export function deleteUser (id){
+    return async function(dispatch){
+        try {
+            await axios.delete(`http://localhost:3001/user/${id}`);
+            dispatch({
+                type: DELETE_USER,
+                payload: {id}
+            })
+            alert("Usuario ELIMINADO")
+        } catch (error) {
+            alert (error.response.data.error || 'Error al eliminar el usuario')
+        }
+    }
+}
+export function putUser(user) {
+    return async function (dispatch) {
+      try {
+        const response = await axios.put(`http://localhost:3001/user/${user.id}`, user);
+        dispatch({
+          type: PUT_USER,
+          payload: response.data
+        });
+        alert("Usuario actualizado con Éxito");
+      } catch (error) {
+        alert(error.response.data.error);
+      }
+    };
+  }
+  export function getUserbyid(id) {
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`http://localhost:3001/user/${id}`);
+            dispatch({
+                type: GET_USERBYID,
+                payload: response.data
+            });
+        } catch (error) {
+            alert(error.response.data.error);
         }
     }
 }
