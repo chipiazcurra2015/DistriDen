@@ -8,8 +8,9 @@ const loginUserController = async (email, password) => {
 		const user =await User.findOne({email});
 		if(!user || !bcryptjs.compareSync(password, user.password)) throw new Error('Credenciales incorrectas');
 		const payload = { id: user.id, email, firstname: user.firstname, lastname: user.lastname, age: user.age }
-		const token = jwt.sign(payload, `${JWT_SECRET}`);
-		return { token, ...payload }; 
+		//const token = jwt.sign(payload, `${JWT_SECRET}`);
+		//return {token, ...payload}; 
+		return { ...payload }; 
   };
 
 const createUserController = async ( type,firstname, lastname, age, email, password, image ) => {
