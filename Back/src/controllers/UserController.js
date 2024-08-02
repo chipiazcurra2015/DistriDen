@@ -5,7 +5,7 @@ const JWT_SECRET= process.env;
 //require('dotenv').config();
 
 const loginUserController = async (email, password) => {
-		const user =await User.findOne({email});
+		const user = await User.findOne({ where: { email } });
 		if(!user || !bcryptjs.compareSync(password, user.password)) throw new Error('Credenciales incorrectas');
 		const payload = { id: user.id, email, firstname: user.firstname, lastname: user.lastname, age: user.age }
 		//const token = jwt.sign(payload, `${JWT_SECRET}`);
