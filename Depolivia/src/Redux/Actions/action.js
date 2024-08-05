@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { DELETE_PRODUCTO, DELETE_USER, GET_ALLPRODUCTO,
      GET_ALLUSER, GET_PRODUCTO, GET_PRODUCTOBYID, GET_USERBYID, LOGIN, PUT_PRODUCTO, 
-     PUT_USER} from './action-type'
+     PUT_USER, GET_ALLCLIENTE, DELETE_CLIENTE, PUT_CLIENTE, GET_CLIENTEBYID} from './action-type'
  
 //Action Producto// 
 export function getallproducto(){
@@ -155,6 +155,71 @@ export function login(email, password) {
             const response = await axios.post('http://localhost:3001/user/log',{ email, password });
         dispatch({
                 type: LOGIN,
+                payload: response.data
+            });
+        } catch (error) {
+            alert(error.response.data.error);
+        }
+    }
+}
+//Action de Clientes//
+export function getallCliente(){
+    return async function(dispatch){
+        try {
+            const response = await axios.get("http://localhost:3001/customer/")
+            dispatch({
+                type: GET_ALLCLIENTE,
+                payload: response.data
+            })
+        } catch (error) {
+            alert(error.response.data.error)
+        }
+    }
+}
+export function postCliente (state){
+    return async function(dispatch){
+        try {
+            await axios.post("http://localhost:3001/customer/",state)
+            alert("Cliente creado con éxito")
+        } catch (error) {
+            alert (error.response.data.error)
+        }
+    }
+}
+export function deleteCliente (id){
+    return async function(dispatch){
+        try {
+            await axios.delete(`http://localhost:3001/customer/${id}`);
+            dispatch({
+                type: DELETE_CLIENTE,
+                payload: {id}
+            })
+            alert("Cliente ELIMINADO")
+        } catch (error) {
+            alert (error.response.data.error || 'Error al eliminar el cliente')
+        }
+    }
+}
+export function putCliente(cliente) {
+    return async function (dispatch) {
+      try {
+        const response = await axios.put(`http://localhost:3001/customer/${cliente.id}`, cliente);
+        dispatch({
+          type: PUT_CLIENTE,
+          payload: response.data
+        });
+        alert("Cliente actualizado con Éxito");
+      } catch (error) {
+        alert(error.response.data.error);
+      }
+    };
+  }
+  export function getClientebyid(id) {
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`http://localhost:3001/customer/${id}`);
+            dispatch({
+                type: GET_CLIENTEBYID,
                 payload: response.data
             });
         } catch (error) {

@@ -64,7 +64,7 @@ const handleChange = (e) => {
                   className="btn-close custom-btn-close"
                 ></button>
 
-                <div className="card-body text-white bg-dark">
+                <div className="card-body text-white bg-dark" >
                   <h3 className="card-title">{user.type}</h3>
                   <h4 className="card-text">Nombre: {user.firstname}</h4>
                   <h5 className="card-text">Apellido: {user.lastname}</h5>

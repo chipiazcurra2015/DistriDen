@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getproductobyid, getallproducto, getalluser, getUserbyid } from '../../../Redux/Actions/action';
+import { getproductobyid, getallproducto, getalluser, getUserbyid, getallCliente, getClientebyid } from '../../../Redux/Actions/action';
 import logo from '../../../image/logo.jpg';
 
 function Navbar() {
@@ -9,7 +9,6 @@ function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const allUser = useSelector((state) => state.allUser);
 
 
   const handleSearch = (e) => {
@@ -32,10 +31,21 @@ function Navbar() {
       }
     }
   };
+  const handleSearchCliente = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/clientes') {
+      if (searchId.trim()) {
+        dispatch(getClientebyid(searchId));
+      } else {
+        dispatch(getallCliente());
+      }
+    }
+  };
   
     const handleSubmit = (e) => {
       handleSearch(e);
       handleSearchUser(e);
+      handleSearchCliente(e);
     };
 
   const handleKeyPress = (event) => {
@@ -63,6 +73,9 @@ function Navbar() {
             </li>
             <li className="nav-item border-bottom border-white">
               <NavLink className="nav-link bi bi-person-arms-up" to="/clientes" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Cliente</NavLink>
+            </li>
+            <li className="nav-item border-bottom border-white">
+              <NavLink className="nav-link bi bi-currency-dollar" to="/ventas" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Ventas</NavLink>
             </li>
             <li className="nav-item border-bottom border-white">
               <NavLink className="nav-link bi bi-geo-alt" to="/ruta" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Ruta</NavLink>

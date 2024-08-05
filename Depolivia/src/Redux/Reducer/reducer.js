@@ -1,10 +1,15 @@
 import { DELETE_PRODUCTO, DELETE_USER, GET_ALLPRODUCTO, GET_ALLUSER, GET_PRODUCTO, 
     GET_PRODUCTOBYID, GET_USERBYID, PUT_PRODUCTO, 
-    PUT_USER, LOGIN} from "../Actions/action-type";
+    PUT_USER, LOGIN,
+    GET_ALLCLIENTE,
+    DELETE_CLIENTE,
+    PUT_CLIENTE,
+    GET_CLIENTEBYID} from "../Actions/action-type";
 
 let initialState = {
     allUser : [],
     allProducto : [],
+    allCliente : [],
     productoById: null,
     userById: null,
     isAuthenticated: false,
@@ -67,13 +72,37 @@ function rootReducer (state = initialState, action){
                     allUser: action.payload
                 } 
                 //LOGIN//
-                case LOGIN:
+            case LOGIN:
                     return {
                         ...state,
                         isAuthenticated: true,
                         user: action.payload,
                         error: null
                     };
+                  //CLIENTE//
+        case GET_ALLCLIENTE:
+            return{
+                ...state,
+                allCliente: action.payload
+            }
+            case DELETE_CLIENTE:
+                return {
+                    ...state,
+                    allCliente: state.allCliente.filter(cliente => cliente.id !== action.payload.id)
+                    }    
+            case PUT_CLIENTE:
+                return {
+                    ...state,
+                    allCliente: state.allCliente.map(cliente => cliente.id === action.payload.id ? {
+                        ...cliente, ...action.payload} : cliente
+            
+                    )
+                    }
+            case GET_CLIENTEBYID:
+                return{
+                    ...state,
+                    allCliente: action.payload
+                } 
             break;
     
         default: return state

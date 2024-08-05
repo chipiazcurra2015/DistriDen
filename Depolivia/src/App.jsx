@@ -11,6 +11,8 @@ import Create from './View/Create/Create';
 import CreateUser from './View/CreateUser/CreateUser';
 import Login from './View/Login/Login';
 import PrivateRoute from './View/PrivateRoute/PrivateRoute';
+import Ventas from './assets/Components/Ventas/Ventas';
+import CreateCliente from './View/CreateCliente/CreateCliente';
 
 function App() {
   const isAuthenticated = useSelector(state => state.isAuthenticated);
@@ -22,11 +24,13 @@ function App() {
         <Route path='/' element={isAuthenticated ? <Navigate to="/home" replace /> : <Login />} />
         <Route path='/home' element={<PrivateRoute element={Home} />} />
         <Route path='/clientes' element={<PrivateRoute element={Clientes} />} />
+        <Route path='/ventas' element={<PrivateRoute element={Ventas} />} />
         <Route path='/user' element={<PrivateRoute element={User} />} />
         <Route path='/ruta' element={<PrivateRoute element={Ruta} />} />
         <Route path='/producto' element={<PrivateRoute element={Producto} />} />
         <Route path='/create/producto' element={<PrivateRoute element={Create} />} />
         <Route path='/create/user' element={<PrivateRoute element={CreateUser} />} />
+        <Route path='/create/cliente' element={<PrivateRoute element={CreateCliente} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

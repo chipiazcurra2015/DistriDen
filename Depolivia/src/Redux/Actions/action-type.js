@@ -11,3 +11,8 @@ export const PUT_USER = "PUT_USER";
 export const GET_USERBYID = "GET_USERBYID";
 //LOGIN//
 export const LOGIN = "LOGIN";
+//Action de Cliente//
+export const GET_ALLCLIENTE = "GET_ALLCLIENTE";
+export const DELETE_CLIENTE ="DELETE_CLIENTE";
+export const PUT_CLIENTE = "PUT_CLIENTE";
+export const GET_CLIENTEBYID = "GET_CLIENTEBYID";
