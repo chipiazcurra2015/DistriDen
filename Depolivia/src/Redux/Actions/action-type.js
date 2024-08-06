@@ -16,3 +16,8 @@ export const GET_ALLCLIENTE = "GET_ALLCLIENTE";
 export const DELETE_CLIENTE ="DELETE_CLIENTE";
 export const PUT_CLIENTE = "PUT_CLIENTE";
 export const GET_CLIENTEBYID = "GET_CLIENTEBYID";
+//Action de Zona//
+export const GET_ALLZONA = "GET_ALLZONA";
+export const DELETE_ZONA ="DELETE_ZONA";
+export const PUT_ZONA = "PUT_ZONA";
+export const GET_ZONABYID = "GET_ZONABYID";

@@ -1,15 +1,20 @@
+import { putZona } from "../Actions/action";
 import { DELETE_PRODUCTO, DELETE_USER, GET_ALLPRODUCTO, GET_ALLUSER, GET_PRODUCTO, 
     GET_PRODUCTOBYID, GET_USERBYID, PUT_PRODUCTO, 
     PUT_USER, LOGIN,
     GET_ALLCLIENTE,
     DELETE_CLIENTE,
     PUT_CLIENTE,
-    GET_CLIENTEBYID} from "../Actions/action-type";
+    GET_CLIENTEBYID,
+    GET_ALLZONA,
+    DELETE_ZONA,
+    GET_ZONABYID} from "../Actions/action-type";
 
 let initialState = {
     allUser : [],
     allProducto : [],
     allCliente : [],
+    allZona : [],
     productoById: null,
     userById: null,
     isAuthenticated: false,
@@ -80,8 +85,8 @@ function rootReducer (state = initialState, action){
                         error: null
                     };
                   //CLIENTE//
-        case GET_ALLCLIENTE:
-            return{
+            case GET_ALLCLIENTE:
+                return{
                 ...state,
                 allCliente: action.payload
             }
@@ -102,6 +107,30 @@ function rootReducer (state = initialState, action){
                 return{
                     ...state,
                     allCliente: action.payload
+                } 
+            //ZONA//
+            case GET_ALLZONA:
+                return{
+                ...state,
+                allZona: action.payload
+            }
+            case DELETE_ZONA:
+                return {
+                    ...state,
+                    allZona: state.allZona.filter(zona => zona.id !== action.payload.id)
+                    }    
+            case putZona:
+                return {
+                    ...state,
+                    allZona: state.allZona.map(zona => zona.id === action.payload.id ? {
+                        ...zona, ...action.payload} : zona
+            
+                    )
+                    }
+            case GET_ZONABYID:
+                return{
+                    ...state,
+                    allZona: action.payload
                 } 
             break;
     

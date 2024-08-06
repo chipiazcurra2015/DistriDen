@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getproductobyid, getallproducto, getalluser, getUserbyid, getallCliente, getClientebyid } from '../../../Redux/Actions/action';
+import { getproductobyid, getallproducto, getalluser, getUserbyid, getallCliente, getClientebyid, getZonabyid, getallZona } from '../../../Redux/Actions/action';
 import logo from '../../../image/logo.jpg';
 
 function Navbar() {
@@ -42,10 +42,22 @@ function Navbar() {
     }
   };
   
+  const handleSearchZona = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/zona') {
+      if (searchId.trim()) {
+        dispatch(getZonabyid(searchId));
+      } else {
+        dispatch(getallZona());
+      }
+    }
+  };
+  
     const handleSubmit = (e) => {
       handleSearch(e);
       handleSearchUser(e);
       handleSearchCliente(e);
+      handleSearchZona(e);
     };
 
   const handleKeyPress = (event) => {
@@ -73,6 +85,9 @@ function Navbar() {
             </li>
             <li className="nav-item border-bottom border-white">
               <NavLink className="nav-link bi bi-person-arms-up" to="/clientes" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Cliente</NavLink>
+            </li>
+            <li className="nav-item border-bottom border-white">
+              <NavLink className="nav-link bi bi-geo-alt" to="/zona" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Zona</NavLink>
             </li>
             <li className="nav-item border-bottom border-white">
               <NavLink className="nav-link bi bi-currency-dollar" to="/ventas" style={({ isActive }) => ({ color: isActive ? 'black' : '#fff' })}>Ventas</NavLink>
