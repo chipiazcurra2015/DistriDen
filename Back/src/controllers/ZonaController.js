@@ -1,12 +1,22 @@
-const {Zona} = require ("../db");
+const {Zona, Customer} = require ("../db");
 const { Op, where } = require('sequelize');
 
 const createZonaController = async ( localidad, provincia, codigoPostal )=>{
-        await Zona.create({
+         await Zona.create({
             localidad, provincia, codigoPostal
         });
 
-      return await Zona.findAll();
+        return await Zona.findAll(
+          {
+            include:{
+                model: Customer,
+                attributes: ["id", "name", "address" ],
+                through: {
+                    attributes: []
+                }
+            }
+        }
+        );
     };
 
 const getZonasByName = async (localidad) => {

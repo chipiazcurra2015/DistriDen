@@ -1,12 +1,32 @@
-const {Customer} = require ("../db");
+const {Customer, Zona} = require ("../db");
 const { Op, where } = require('sequelize');
 
-const createCustomerController = async ( name, address, image )=>{
-        await Customer.create({
-            name, address, image
+const createCustomerController = async ( name, address, image, zona )=>{
+
+       const customerAct = await Customer.findAll({where: {name}});
+       if (customerAct.length === 0) {
+        const newCustomer = await Customer.create({
+          name, address, image
         });
 
-      return await Customer.findAll();
+        const findZona = await Zona.findAll({where: {id: zona}});
+
+        await newCustomer.addZonas(findZona);
+       } else{
+        const findZona = await Zona.findAll({where: {id: zona}});
+
+        await customerAct.addZonas(findZona);
+       }
+
+      const zonaAct = await Customer.findAll({include: {
+        model: Zona,
+        attributes: ["localidad", "provincia"],
+        through: {
+          attributes: []
+        }
+      }})
+
+      return zonaAct;
     };
 
 const getCustomersByName = async (name) => {
@@ -16,19 +36,41 @@ const getCustomersByName = async (name) => {
         { name:
         {[Op.iLike]:
         `%${name}%`
-    }}})
+        }},
+        include: {
+          model: Zona,
+          attributes: ["localidad", "provincia"],
+          through: {
+            attributes: []
+          }
+        }
+    })
 
     return customersName;
 };
     
 const getAllCustomers = async () => {
-    const customer = await Customer.findAll();
-    return customer;
+   
+    const zonaAct = await Customer.findAll({include: {
+      model: Zona,
+      attributes: ["localidad", "provincia"],
+      through: {
+        attributes: []
+      }
+    }})
+    return zonaAct;
 };
 
 const getCustomerById = async (id) => {
     const customerFilter = await Customer.findAll({
-      where: { id }
+      where: { id },
+      include: {
+        model: Zona,
+        attributes: ["localidad", "provincia"],
+        through: {
+          attributes: []
+        }
+      }
     });
   
     return customerFilter;

@@ -19,7 +19,6 @@ module.exports = (sequelize) =>{
         codigoPostal: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
          },
     },{timestamps: false})
 }
