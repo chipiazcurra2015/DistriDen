@@ -44,6 +44,8 @@ const getCustomerById = async (id) => {
   
       if (editedData && typeof editedData === 'object') {
         customer.address = editedData.address;
+        customer.name = editedData.name;
+        customer.image = editedData.image;
       }
   
       await customer.save();

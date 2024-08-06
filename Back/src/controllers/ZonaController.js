@@ -44,6 +44,7 @@ const getZonaById = async (id) => {
   
       if (editedData && typeof editedData === 'object') {
         zona.provincia = editedData.provincia;
+        zona.localidad = editedData.localidad;
         zona.codigoPostal = editedData.codigoPostal;
       }
   
