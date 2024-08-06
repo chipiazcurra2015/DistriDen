@@ -3,6 +3,7 @@ const { createZonaController, getZonasByName, getAllZonas, deleteZonas, getZonaB
 const createZonaHandler = async (req , res) => {
     try {
         const { localidad, provincia, codigoPostal } = req.body
+        
         const response = await createZonaController( localidad, provincia, codigoPostal );
             res.status(200).json(response);
     } catch (error) {

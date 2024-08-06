@@ -2,8 +2,8 @@ const { createCustomerController, getCustomersByName, getAllCustomers, deleteCus
 
 const createCustomerHandler = async (req , res) => {
     try {
-        const { name, address, image } = req.body
-        const response = await createCustomerController( name, address, image );
+        const { name, address, image, zona } = req.body
+        const response = await createCustomerController( name, address, image, zona );
             res.status(200).json(response);
     } catch (error) {
         res.status(400).json({error:error.message})
